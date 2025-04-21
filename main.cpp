@@ -19,8 +19,8 @@ void showMenu() {
 
 
 int main() {
-    TaskManager manager;
-    string filename = "tasks.txt";
+    TaskManager manager
+    string filename = "tasks.txt"; // missing semicolon above
 
     manager.loadFromFile(filename);
 
