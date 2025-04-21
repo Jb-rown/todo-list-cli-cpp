@@ -62,6 +62,23 @@ void TaskManager::deleteTask() {
     }
 }
 
+void TaskManager::toggleTask() {
+    viewTasks();
+    if (tasks.empty()) return;
+
+    int index;
+    cout << "Enter task number to mark as done/undone: ";
+    cin >> index;
+
+    if (index >= 1 && index <= tasks.size()) {
+        tasks[index - 1].completed = !tasks[index - 1].completed;
+        cout << "Task status updated!" << endl;
+    } else {
+        cout << "Invalid task number." << endl;
+    }
+}
+
+
 bool TaskManager::isEmpty() const {
     return tasks.empty();
 }

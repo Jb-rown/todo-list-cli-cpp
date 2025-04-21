@@ -21,6 +21,7 @@ public:
     void addTask();
     void viewTasks() const;
     void deleteTask();
+    void toggleTask();
 
     bool isEmpty() const;
 };

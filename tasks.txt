@@ -2,3 +2,4 @@ Research Methodology Completion,0
 Theory of Computation Exams At 5:00 pm,0
 Computer Forensic and Investigation quiz assignment due 20th April 2025,0
 Project pitching 21st April 2025,0
+Professional Ethics Of Computation,1

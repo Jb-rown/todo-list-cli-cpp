@@ -7,9 +7,11 @@ void showMenu() {
     cout << "1. Add Task" << endl;
     cout << "2. View Tasks" << endl;
     cout << "3. Delete Task" << endl;
-    cout << "4. Exit" << endl;
+    cout << "4. Mark Task as Done/Undone" << endl;
+    cout << "5. Exit" << endl;
     cout << "Choose an option: ";
 }
+
 
 int main() {
     TaskManager manager;
@@ -28,13 +30,15 @@ int main() {
             case 1: manager.addTask(); break;
             case 2: manager.viewTasks(); break;
             case 3: manager.deleteTask(); break;
-            case 4:
+            case 4: manager.toggleTask(); break;
+            case 5:
                 manager.saveToFile(filename);
                 cout << "Goodbye!" << endl;
                 break;
             default: cout << "Invalid choice." << endl;
         }
-    } while (choice != 4);
+        
+    } while (choice != 5);
 
     return 0;
 }
