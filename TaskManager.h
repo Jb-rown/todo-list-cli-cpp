@@ -8,6 +8,7 @@ using namespace std;
 struct Task {
     string title;
     bool completed;
+    string dueDate; // e.g., "2025-04-25"
 };
 
 class TaskManager {
@@ -25,6 +26,8 @@ public:
     void searchTasks(const string& keyword) const;
     void filterTasks(bool showCompleted) const;
     void sortTasks();
+    void exportToCSV(const string& filename) const;
+
 
     bool isEmpty() const;
 };

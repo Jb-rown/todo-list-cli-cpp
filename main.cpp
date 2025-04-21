@@ -12,7 +12,8 @@ void showMenu() {
     cout << "6. Filter Completed" << endl;
     cout << "7. Filter Pending" << endl;
     cout << "8. Sort Tasks A-Z" << endl;
-    cout << "9. Exit" << endl;
+    cout << "9. Export to CSV" << endl;
+    cout << "10. Exit" << endl;
     cout << "Choose an option: ";
 }
 
@@ -47,14 +48,18 @@ switch (choice) {
     case 7: manager.filterTasks(false); break;
     case 8: manager.sortTasks(); break;
     case 9:
-        manager.saveToFile(filename);
-        cout << "Goodbye!" << endl;
-        break;
+    manager.exportToCSV("exported_tasks.csv");
+    break;
+    case 10:
+    manager.saveToFile(filename);
+    cout << "Goodbye!" << endl;
+    break;
+
     default: cout << "Invalid choice." << endl;
 }
 
         
-    } while (choice != 9);
+    } while (choice != 10);
 
     return 0;
 }

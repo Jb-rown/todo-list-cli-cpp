@@ -8,11 +8,13 @@ void TaskManager::loadFromFile(const string& filename) {
     ifstream file(filename);
     string line;
     while (getline(file, line)) {
-        size_t comma = line.find(',');
-        if (comma != string::npos) {
+        size_t first = line.find(',');
+        size_t second = line.find(',', first + 1);
+        if (first != string::npos && second != string::npos) {
             Task t;
-            t.title = line.substr(0, comma);
-            t.completed = (line.substr(comma + 1) == "1");
+            t.title = line.substr(0, first);
+            t.completed = (line.substr(first + 1, second - first - 1) == "1");
+            t.dueDate = line.substr(second + 1);
             tasks.push_back(t);
         }
     }
@@ -22,20 +24,26 @@ void TaskManager::loadFromFile(const string& filename) {
 void TaskManager::saveToFile(const string& filename) {
     ofstream file(filename);
     for (const auto& t : tasks) {
-        file << t.title << "," << t.completed << endl;
+        file << t.title << "," << t.completed << "," << t.dueDate << endl;
     }
     file.close();
 }
+
 
 void TaskManager::addTask() {
     Task t;
     cout << "Enter task title: ";
     cin.ignore();
     getline(cin, t.title);
+
+    cout << "Enter due date (YYYY-MM-DD): ";
+    getline(cin, t.dueDate);
+
     t.completed = false;
     tasks.push_back(t);
     cout << "Task added!" << endl;
 }
+
 
 void TaskManager::viewTasks() const {
     cout << "\n--- Your Tasks ---" << endl;
@@ -43,12 +51,15 @@ void TaskManager::viewTasks() const {
         cout << "No tasks yet!" << endl;
         return;
     }
+
     for (int i = 0; i < tasks.size(); ++i) {
         cout << i + 1 << ". " << tasks[i].title;
         if (tasks[i].completed) cout << " [Done]";
+        cout << " (Due: " << tasks[i].dueDate << ")";
         cout << endl;
     }
 }
+
 
 void TaskManager::deleteTask() {
     viewTasks();
@@ -111,6 +122,19 @@ void TaskManager::sortTasks() {
     });
     cout << "Tasks sorted alphabetically!" << endl;
 }
+
+void TaskManager::exportToCSV(const string& filename) const {
+    ofstream file(filename);
+    file << "Title,Completed,Due Date\n";
+    for (const auto& t : tasks) {
+        file << "\"" << t.title << "\","
+             << (t.completed ? "Yes" : "No") << ","
+             << t.dueDate << "\n";
+    }
+    file.close();
+    cout << "Tasks exported to " << filename << "!" << endl;
+}
+
 bool TaskManager::isEmpty() const {
     return tasks.empty();
 }
