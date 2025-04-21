@@ -51,6 +51,7 @@ switch (choice) {
     manager.exportToCSV("exported_tasks.csv");
     break;
     case 10:
+    cout << "Saving your tasks to file..." << endl;
     manager.saveToFile(filename);
     cout << "Goodbye!" << endl;
     break;

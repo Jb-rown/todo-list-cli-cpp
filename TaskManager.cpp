@@ -2,6 +2,12 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <ctime> 
+#include <sstream>
+
+#define RED     "\033[1;31m"
+#define RESET   "\033[0m"
+// #define GREEN   "\033[1;32m"
 using namespace std;
 
 void TaskManager::loadFromFile(const string& filename) {
@@ -54,10 +60,17 @@ void TaskManager::viewTasks() const {
 
     for (int i = 0; i < tasks.size(); ++i) {
         cout << i + 1 << ". " << tasks[i].title;
+    
         if (tasks[i].completed) cout << " [Done]";
-        cout << " (Due: " << tasks[i].dueDate << ")";
-        cout << endl;
+        else if (isOverdue(tasks[i].dueDate)) cout << RED << " [!! OVERDUE !!]" << RESET;
+        else cout << " [Pending]";
+        // Display due date if it's not empty
+       // if (!tasks[i].dueDate.empty())
+
+    
+        cout << " (Due: " << tasks[i].dueDate << ")" << endl;
     }
+    
 }
 
 
@@ -137,4 +150,27 @@ void TaskManager::exportToCSV(const string& filename) const {
 
 bool TaskManager::isEmpty() const {
     return tasks.empty();
+}
+
+
+bool isOverdue(const string& dueDate) {
+    if (dueDate.empty()) return false;
+
+    time_t now = time(0);
+    tm* ltm = localtime(&now);
+
+    int yearNow = 1900 + ltm->tm_year;
+    int monthNow = 1 + ltm->tm_mon;
+    int dayNow = ltm->tm_mday;
+
+    int y, m, d;
+    char sep;
+    stringstream ss(dueDate);
+    ss >> y >> sep >> m >> sep >> d;
+
+    if (y < yearNow) return true;
+    if (y == yearNow && m < monthNow) return true;
+    if (y == yearNow && m == monthNow && d < dayNow) return true;
+
+    return false;
 }
