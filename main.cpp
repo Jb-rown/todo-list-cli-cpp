@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
 using namespace std;
 
 struct Task {
@@ -52,10 +53,32 @@ void deleteTask(vector<Task>& tasks) {
     }
 }
 
+void saveTasksToFile(const vector<Task>& tasks) {
+    ofstream file("tasks.txt");
+    for (const auto& task : tasks) {
+        file << task.title << "," << task.completed << endl;
+    }
+    file.close();
+}
+
+void loadTasksFromFile(vector<Task>& tasks) {
+    ifstream file("tasks.txt");
+    string line;
+    while (getline(file, line)) {
+        size_t commaPos = line.find(',');
+        Task t;
+        t.title = line.substr(0, commaPos);
+        t.completed = (line.substr(commaPos + 1) == "1");
+        tasks.push_back(t);
+    }
+    file.close();
+}
 int main() {
     vector<Task> tasks;
-    int choice;
+    loadTasksFromFile(tasks);
 
+    int choice;
+    cout << "========================" << endl;
     cout << "Welcome to your To-Do List App!" << endl;
 
     do {
@@ -66,12 +89,13 @@ int main() {
             case 1: addTask(tasks); break;
             case 2: viewTasks(tasks); break;
             case 3: deleteTask(tasks); break;
-            case 4: cout << "Goodbye!" << endl; break;
+            case 4:
+                saveTasksToFile(tasks);
+                cout << "Goodbye!" << endl;
+                break;
             default: cout << "Invalid choice." << endl;
         }
-
     } while (choice != 4);
 
     return 0;
 }
-// This is a simple console-based To-Do List application in C++.
