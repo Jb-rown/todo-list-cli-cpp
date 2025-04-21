@@ -1,3 +1,5 @@
+![C++ Build](https://github.com/Jb-rown/todo-list-app/actions/workflows/cpp.yml/badge.svg)
+
 # 📝 C++ Command-Line To-Do List App
 
 A modern, beginner-friendly C++ command-line To-Do List application for managing daily tasks. Supports task creation, editing, completion, due dates, and file persistence.
