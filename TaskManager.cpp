@@ -1,6 +1,7 @@
 #include "TaskManager.h"
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 using namespace std;
 
 void TaskManager::loadFromFile(const string& filename) {
@@ -78,7 +79,38 @@ void TaskManager::toggleTask() {
     }
 }
 
+void TaskManager::searchTasks(const string& keyword) const {
+    cout << "\n--- Search Results for '" << keyword << "' ---" << endl;
+    bool found = false;
+    for (int i = 0; i < tasks.size(); i++) {
+        if (tasks[i].title.find(keyword) != string::npos) {
+            cout << i + 1 << ". " << tasks[i].title;
+            if (tasks[i].completed) cout << " [Done]";
+            cout << endl;
+            found = true;
+        }
+    }
+    if (!found) cout << "No matching tasks found." << endl;
+}
 
+void TaskManager::filterTasks(bool showCompleted) const {
+    cout << (showCompleted ? "\n--- Completed Tasks ---" : "\n--- Pending Tasks ---") << endl;
+    bool found = false;
+    for (int i = 0; i < tasks.size(); i++) {
+        if (tasks[i].completed == showCompleted) {
+            cout << i + 1 << ". " << tasks[i].title << endl;
+            found = true;
+        }
+    }
+    if (!found) cout << "No tasks match this filter." << endl;
+}
+
+void TaskManager::sortTasks() {
+    sort(tasks.begin(), tasks.end(), [](const Task& a, const Task& b) {
+        return a.title < b.title;
+    });
+    cout << "Tasks sorted alphabetically!" << endl;
+}
 bool TaskManager::isEmpty() const {
     return tasks.empty();
 }

@@ -22,6 +22,9 @@ public:
     void viewTasks() const;
     void deleteTask();
     void toggleTask();
+    void searchTasks(const string& keyword) const;
+    void filterTasks(bool showCompleted) const;
+    void sortTasks();
 
     bool isEmpty() const;
 };
