@@ -1,3 +1,5 @@
+![C++ Build](https://github.com/Jb-rown/todo-list-app/actions/workflows/cpp.yml/badge.svg)
+
 # 📝 C++ Command-Line To-Do List App
 
 A modern, beginner-friendly C++ command-line To-Do List application for managing daily tasks. Supports task creation, editing, completion, due dates, and file persistence.
@@ -22,10 +24,17 @@ A modern, beginner-friendly C++ command-line To-Do List application for managing
 ---
 
 ## 📂 Project Structure
+```
+todo-list-app/
+            ├── main.cpp # Entry point 
+            ├── TaskManager.h # Header file for task manager 
+            ├── TaskManager.cpp # Logic and implementation 
+            ├── tasks.txt # Saved tasks 
+            ├── tasks.csv # Exported task list (optional) 
+            ├── README.md # You are here 
+            └── .gitignore # Ignore compiled binaries, etc.
 
-todo-list-app/ │ ├── main.cpp # Entry point ├── TaskManager.h # Header file for task manager ├── TaskManager.cpp # Logic and implementation ├── tasks.txt # Saved tasks ├── tasks.csv # Exported task list (optional) ├── README.md # You are here └── .gitignore # Ignore compiled binaries, etc.
-
-
+```
 ---
 
 ## 🛠 How to Run
@@ -33,25 +42,24 @@ todo-list-app/ │ ├── main.cpp # Entry point ├── TaskManager.h # He
 ### 1. Clone the repository
 
 ```bash
-```
 git clone https://github.com/yourusername/todo-list-app.git
 cd todo-list-app
-
+```
 ### 2. Compile the program
 
 Using g++:
 ```bash
-```
-    g++ main.cpp TaskManager.cpp -o todo
 
+    g++ main.cpp TaskManager.cpp -o todo
+```
  ### 3. Run it
 ```bash
-```
+
  ./todo   # Linux/Mac
 todo.exe # Windows (or just run `todo` in PowerShell)
-
+```
 ## 📷 Sample Output
-pgsql
+```pgsql
 ==== TO-DO LIST MENU ====
 1. Add Task
 2. View Tasks
@@ -65,8 +73,9 @@ pgsql
 10. Load Tasks from File
 11. Exit
 =========================
-
+```
 ## 📅 Task Format
+
 ### Each task includes:
 
 - Title
@@ -77,22 +86,23 @@ pgsql
 
 - Completion status (Done/Not done)
 
+
 ## ✅ Example
 Add task:
-yaml
+```yaml
 Title: Finish report
 Description: Complete the annual report
 Due date: 2025-04-28
-
+```
 Output:
-less
+```less
 1. Finish report [!! OVERDUE !!] (Due: 2025-04-01)
-
+```
 📦 Exported CSV
-javascript
+```javascript
 Title,Description,Due Date,Completed
 Finish report,Complete the annual report,2025-04-28,false
-
+```
 ## ✨ Future Improvements (Optional Ideas)
 - GUI version with Qt or wxWidgets
 
